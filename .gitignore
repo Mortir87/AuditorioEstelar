@@ -1,0 +1,81 @@
+# ===============================
+# Android Studio / Gradle
+# ===============================
+
+# Gradle files
+.gradle/
+build/
+*/build/
+
+# Local configuration file (SDK path, etc)
+local.properties
+
+# ===============================
+# Android Studio
+# ===============================
+
+# Android Studio generated files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Cache
+.caches/
+.navigation/
+captures/
+output.json
+
+# ===============================
+# Logs
+# ===============================
+*.log
+
+# ===============================
+# APK / AAB
+# ===============================
+*.apk
+*.aab
+
+# ===============================
+# Dex files
+# ===============================
+*.dex
+
+# ===============================
+# Generated files
+# ===============================
+bin/
+gen/
+
+# ===============================
+# OS-specific files
+# ===============================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Linux
+*~
+
+# ===============================
+# Keystore files (IMPORTANT)
+# ===============================
+*.jks
+*.keystore
+
+# ===============================
+# Android profiling
+# ===============================
+*.hprof
+
+# ===============================
+# NDK
+# ===============================
+.externalNativeBuild/
+.cxx/
