@@ -26,7 +26,8 @@
             app:menu="@menu/botton_nav_menu"
             app:itemIconTint="@color/nav_item_color"
             app:itemTextColor="@color/nav_item_color"
-            app:itemActiveIndicatorStyle="@null" />
+            app:itemActiveIndicatorStyle="@null"
+            app:itemIconSize="35dp"/>
 
     </RelativeLayout>
 
