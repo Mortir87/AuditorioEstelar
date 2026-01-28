@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Colores primarios - Azul Navy -->
+    <color name="azul_primario">#1E3A5F</color>
+    <color name="navy_primario_oscuro">#152a45</color>
+    <color name="navy_light">#2d5080</color>
+    <color name="navy_subtle">#e8ecf1</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Colores primarios - dorado Destacado -->
+    <color name="dorado_primario">#D4A047</color>
 </resources>
