@@ -14,7 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class HomeFragment extends Fragment {
 
-    private ViewPager2 viewPager2;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,8 +40,8 @@ public class HomeFragment extends Fragment {
         // Puntitos del selector
         if (tabLayout != null && viewPager2 != null) {
             new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
-                // Aquí se queda vacío para que solo se vean los puntos del selector
-            }).attach();
+        //no personalizamos
+                }).attach();
         }
 
         return view;

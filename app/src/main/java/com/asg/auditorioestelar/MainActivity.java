@@ -1,12 +1,10 @@
 package com.asg.auditorioestelar;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,6 +15,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Boton de atras
+        ImageButton btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+
+            if (bottomNav.getSelectedItemId() != R.id.nav_home) {
+                bottomNav.setSelectedItemId(R.id.nav_home);
+            } else {
+                moveTaskToBack(true);
+            }
+        });
+
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
@@ -33,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
                 selectedFragment = new CalendarioFragment();
             } else if (id == R.id.nav_menu) {
                 selectedFragment = new MenuFragment();
+            }
+
+            //ocultar boton atras en inicio
+            if (id == R.id.nav_home) {
+                selectedFragment = new HomeFragment();
+                btnBack.setVisibility(View.GONE); // Se esconde en el inicio
+            } else {
+                // En las demás pantallas (Perfil, Calendario, etc.) se muestra
+                btnBack.setVisibility(View.VISIBLE);
             }
 
             if (selectedFragment != null) {
