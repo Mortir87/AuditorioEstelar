@@ -30,11 +30,11 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="18dp"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
                 android:elevation="10dp"
-                android:background="@drawable/circulo_atras"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/icon_atras"
                 android:contentDescription="Atrás"
                 app:tint="@color/azul_primario" />
