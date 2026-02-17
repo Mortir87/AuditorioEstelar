@@ -6,4 +6,6 @@ import retrofit2.http.POST;
 public interface ApiService {
     @POST("registrar.php")
     Call<String> registrarUsuario(@Body Usuario usuario);
+    @POST("sucio.php")
+    Call<String> publicarRegistro(@Body Sucio registro);
 }
