@@ -7,7 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import java.util.ArrayList;
+import android.widget.TextView;
 import java.util.List;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -23,7 +23,7 @@ public class HomeFragment extends Fragment {
     private ViewPager2 viewPager2;
     private TabLayout tabLayout;
 
-    // Para la rotación automática
+    // Necesario para la rotación automática
     private Handler handler = new Handler(Looper.getMainLooper());
     private Runnable runnable;
 
@@ -40,8 +40,20 @@ public class HomeFragment extends Fragment {
         viewPager2 = view.findViewById(R.id.viewPagerCartelera);
         tabLayout = view.findViewById(R.id.tabLayoutIndicador);
 
+        // "Ver toda la programacion"
+        TextView verProgramacion = view.findViewById(R.id.textVerProgramacion);
+
+        verProgramacion.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new ProgramacionFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
+
         // Cargar conciertos desde la API
         cargarConciertos();
+
 
         return view;
     }

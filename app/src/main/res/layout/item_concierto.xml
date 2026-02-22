@@ -30,7 +30,7 @@
             android:id="@+id/textViewDescripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Descripción corta del evento..."
+            android:text="Descripción corta del evento"
             android:textColor="#EEEEEE"
             android:textSize="16sp" />
     </LinearLayout>
