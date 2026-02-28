@@ -2,7 +2,7 @@
 header('Content-Type: application/json; charset=utf-8');
 require_once "config/conexion.php";
 
-$sql = "SELECT titulo, descripcion, cartel_url FROM concierto";
+$sql = "SELECT id_concierto, titulo, descripcion, cartel_url FROM concierto";
 $result = $conexion->query($sql);
 
 $conciertos = array();

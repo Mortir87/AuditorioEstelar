@@ -39,6 +39,25 @@ public class AdaptadorProgramacion extends RecyclerView.Adapter<AdaptadorProgram
         Glide.with(holder.itemView.getContext())
                 .load(c.getCartelUrl())
                 .into(holder.imagen);
+
+        //ir a detalle
+        holder.itemView.setOnClickListener(v -> {
+
+            DetalleConciertoFragment fragment =
+                    DetalleConciertoFragment.newInstance(
+                            c.getId_concierto(),
+                            c.getTitulo(),
+                            c.getDescripcion(),
+                            c.getCartelUrl()
+                    );
+
+            ((MainActivity) v.getContext())
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 
     @Override

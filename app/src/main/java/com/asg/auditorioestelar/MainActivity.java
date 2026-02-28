@@ -6,6 +6,7 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -18,18 +19,36 @@ public class MainActivity extends AppCompatActivity {
 
         // Boton de atras
         ImageButton btnBack = findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(v -> {
-            BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
-            if (bottomNav.getSelectedItemId() != R.id.nav_home) {
-                bottomNav.setSelectedItemId(R.id.nav_home);
+        getSupportFragmentManager().addOnBackStackChangedListener(() -> {
+
+            // Revisamos si venimos de un fragment interno y estamos en Home → ocultar botón
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0 &&
+                    bottomNav.getSelectedItemId() == R.id.nav_home) {
+                btnBack.setVisibility(View.GONE);
             } else {
-                moveTaskToBack(true);
+                btnBack.setVisibility(View.VISIBLE);
             }
         });
 
+        btnBack.setOnClickListener(v -> {
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+            // navegación interna (Programación, Detalle, Butacas)
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportFragmentManager().popBackStack();
+                return;
+            }
+
+            // Si estamos en Home → salir
+            if (bottomNav.getSelectedItemId() == R.id.nav_home) {
+                moveTaskToBack(true);
+            } else {
+                // Si estamos en otro tab → volver a Home
+                bottomNav.setSelectedItemId(R.id.nav_home);
+            }
+        });
+
 
         // Listener para detectar los clics
         bottomNav.setOnItemSelectedListener(item -> {
