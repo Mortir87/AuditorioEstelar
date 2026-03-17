@@ -32,7 +32,7 @@
         android:id="@+id/recyclerPatio"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="1"
         android:clipToPadding="false"
         android:padding="8dp"/>
 
@@ -111,6 +111,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Seleccionada"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginStart="8dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_asiento"
+                app:tint="@color/naranja_reserva"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Reservada"
                 android:textSize="16sp" />
         </LinearLayout>
 

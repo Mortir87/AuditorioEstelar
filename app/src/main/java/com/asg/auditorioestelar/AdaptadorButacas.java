@@ -45,6 +45,12 @@ public class AdaptadorButacas extends RecyclerView.Adapter<AdaptadorButacas.View
                 holder.txtButaca.setText("X");
                 break;
             case "RESERVADA":
+                holder.imgButaca.setColorFilter(Color.parseColor("#FF9800"));
+                holder.imgButaca.setAlpha(0.6f); // Distinto para reserva
+                holder.imgButaca.setEnabled(false);
+                holder.txtButaca.setEnabled(false);
+                holder.txtButaca.setText("R");
+                break;
             case "BLOQUEADA":
                 holder.imgButaca.setColorFilter(Color.GRAY);
                 holder.imgButaca.setAlpha(0.3f); // Casi transparente
