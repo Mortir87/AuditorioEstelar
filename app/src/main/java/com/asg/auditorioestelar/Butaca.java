@@ -1,6 +1,6 @@
 package com.asg.auditorioestelar;
-
-public class Butaca {
+import java.io.Serializable;
+public class Butaca implements Serializable{
 
     private int id_butaca;
     private int fila;

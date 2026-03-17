@@ -10,4 +10,5 @@
 
     <!-- Colores primarios - dorado Destacado -->
     <color name="dorado_primario">#D4A047</color>
+    <color name="dorado_trasparente">#26D4A047</color>
 </resources>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginTop="70dp"
+    android:layout_marginBottom="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Resumen de compra:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- sombreado info sesion -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_dorado_redondeado"
+        android:orientation="vertical"
+        android:padding="0dp">
+    <TextView
+        android:id="@+id/txtConcierto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre del concierto"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/txtSesion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fecha y hora"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtButacas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Butacas seleccionadas"
+        android:layout_marginBottom="16dp"
+        android:layout_margin="15dp"/>
+
+    <TextView
+        android:id="@+id/txtTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total: 0€"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+
+        />
+
+    <Button
+        android:id="@+id/btnConfirmar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirmar compra"
+        android:backgroundTint="#2F558E"
+        app:icon="@android:drawable/btn_star"        />
+</LinearLayout>

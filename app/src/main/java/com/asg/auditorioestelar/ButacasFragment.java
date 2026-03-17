@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,10 @@ public class ButacasFragment extends Fragment {
     private RecyclerView recyclerPatio, recyclerAnfiteatro;
     private Button btnContinuar;
     private int idSesion;
+    private List<Butaca> patio = new ArrayList<>();
+    private List<Butaca> anfiteatro = new ArrayList<>();
+    private String titulo, fecha, hora;
+
 
     @Nullable
     @Override
@@ -44,9 +49,53 @@ public class ButacasFragment extends Fragment {
         // Recibir id_sesion
         if (getArguments() != null) {
             idSesion = getArguments().getInt("id_sesion");
+            titulo = getArguments().getString("titulo");
+            fecha = getArguments().getString("fecha");
+            hora = getArguments().getString("hora");
         }
 
         cargarButacas();
+        btnContinuar.setOnClickListener(v -> {
+
+            ArrayList<Butaca> seleccionadas = new ArrayList<>();
+
+            // Recoger seleccionadas del patio
+            for (Butaca b : patio) {
+                if (b.getSeleccionada()) {
+                    seleccionadas.add(b);
+                }
+            }
+
+            // Recoger seleccionadas del anfiteatro
+            for (Butaca b : anfiteatro) {
+                if (b.getSeleccionada()) {
+                    seleccionadas.add(b);
+                }
+            }
+
+            // Comprobar que haya al menos una seleccionada
+            if (seleccionadas.isEmpty()) {
+                Toast.makeText(getContext(), "Selecciona al menos una butaca", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Enviar datos al siguiente fragment
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("butacas", seleccionadas);
+            bundle.putInt("id_sesion", idSesion);
+            bundle.putString("titulo", titulo);
+            bundle.putString("fecha", fecha);
+            bundle.putString("hora", hora);
+
+            ConfirmarCompraFragment fragment = new ConfirmarCompraFragment();
+            fragment.setArguments(bundle);
+
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
 
         return view;
     }
@@ -65,9 +114,10 @@ public class ButacasFragment extends Fragment {
 
                     List<Butaca> listaCompleta = response.body();
 
-                    // Separar por zonas
-                    List<Butaca> patio = new ArrayList<>();
-                    List<Butaca> anfiteatro = new ArrayList<>();
+
+                    // Separamos por zonas, y limpiamos las variables globales
+                    patio.clear();
+                    anfiteatro.clear();
 
                     for (Butaca b : listaCompleta) {
                         if ("Patio".equalsIgnoreCase(b.getZona())) {
@@ -91,5 +141,6 @@ public class ButacasFragment extends Fragment {
                 t.printStackTrace();
             }
         });
+
     }
 }

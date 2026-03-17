@@ -85,6 +85,10 @@ public class DetalleConciertoFragment extends Fragment {
                         // Ir a butacas
                         Bundle bundle = new Bundle();
                         bundle.putInt("id_sesion", sesion.getIdSesion());
+                        // pasamos los datos para luego el resumen da la compra
+                        bundle.putString("titulo", titulo.getText().toString());
+                        bundle.putString("fecha", sesion.getFecha());
+                        bundle.putString("hora", sesion.getHora());
 
                         ButacasFragment fragment = new ButacasFragment();
                         fragment.setArguments(bundle);
