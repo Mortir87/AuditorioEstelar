@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Listener para detectar los clics
         bottomNav.setOnItemSelectedListener(item -> {
+
+            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
             Fragment selectedFragment = null;
 
             int id = item.getItemId();

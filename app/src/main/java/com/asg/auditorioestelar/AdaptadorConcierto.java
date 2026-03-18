@@ -1,5 +1,6 @@
 package com.asg.auditorioestelar;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,25 @@ public class AdaptadorConcierto extends RecyclerView.Adapter<AdaptadorConcierto.
             Glide.with(holder.itemView.getContext())
                     .load(concierto.getCartelUrl())
                     .into(holder.imagen);
+
+            holder.itemView.setOnClickListener(v -> {
+
+                // Usamos el metodo newInstance que ya tienes creado en el Fragment
+                DetalleConciertoFragment fragment = DetalleConciertoFragment.newInstance(
+                        concierto.getId_concierto(),
+                        concierto.getTitulo(),
+                        concierto.getDescripcion(),
+                        concierto.getCartelUrl()
+                );
+
+                // Navegación (Casteamos a FragmentActivity que es más seguro que MainActivity)
+                androidx.fragment.app.FragmentActivity actividad = (androidx.fragment.app.FragmentActivity) v.getContext();
+                actividad.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            });
         }
 
         @Override

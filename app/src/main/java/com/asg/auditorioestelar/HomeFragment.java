@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment {
     // Rotacion cartelera
 
     private void iniRotacion() {
-
+        handler.removeCallbacks(runnable);
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -125,6 +125,23 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
 
+        if (handler != null && runnable != null) {
+            handler.removeCallbacks(runnable);
+        }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Si ya tenemos el adaptador, reiniciamos la rotación al volver
+        if (adapter != null) {
+            iniRotacion();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // DETENER el giro inmediatamente cuando el fragmento deja de verse
         if (handler != null && runnable != null) {
             handler.removeCallbacks(runnable);
         }

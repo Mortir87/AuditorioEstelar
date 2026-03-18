@@ -1,6 +1,8 @@
 package com.asg.auditorioestelar;
+import java.io.Serializable;
 
-public class Concierto {
+
+public class Concierto implements Serializable {
     private int id_concierto;
     private String titulo;
     private String descripcion;
@@ -12,7 +14,7 @@ public class Concierto {
         this.cartel_url = cartelUrl;
     }
     // contructor vacio
-    public Concierto(){
+    public Concierto (){
     }
     // constructor
     public Concierto(int id_concierto, String titulo, String descripcion, String cartelUrl) {
