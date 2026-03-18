@@ -71,9 +71,7 @@ public class DetalleConciertoFragment extends Fragment {
 
     private void cargarSesiones() {
 
-        ApiService apiService = RetrofitClient
-                .getClient("http://10.0.2.2/teatro/")
-                .create(ApiService.class);
+        ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
 
         apiService.obtenerSesiones(idConcierto).enqueue(new Callback<List<Sesion>>() {
             @Override

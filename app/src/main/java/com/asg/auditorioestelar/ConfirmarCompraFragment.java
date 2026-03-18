@@ -111,9 +111,7 @@ public class ConfirmarCompraFragment extends Fragment {
             datos.put("butacas", listaButacas);
 
             // Llamada Retrofit
-            ApiService apiService = RetrofitClient
-                    .getClient("http://10.0.2.2/teatro/")
-                    .create(ApiService.class);
+        ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
 
             apiService.confirmarReserva(datos).enqueue(new Callback<Map<String, Object>>() {
                 @Override

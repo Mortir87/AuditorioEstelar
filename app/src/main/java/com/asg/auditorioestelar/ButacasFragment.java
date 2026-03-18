@@ -102,9 +102,7 @@ public class ButacasFragment extends Fragment {
 
     private void cargarButacas() {
 
-        ApiService apiService = RetrofitClient
-                .getClient("http://10.0.2.2/teatro/")
-                .create(ApiService.class);
+        ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
 
         apiService.obtenerButacas(idSesion).enqueue(new Callback<List<Butaca>>() {
             @Override

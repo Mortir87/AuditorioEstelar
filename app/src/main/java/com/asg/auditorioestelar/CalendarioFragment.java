@@ -42,7 +42,7 @@ public class CalendarioFragment extends Fragment {
         Sucio nuevo = new Sucio(texto);
 
         ApiService apiService = RetrofitClient
-                .getClient("http://10.0.2.2/teatro/")
+                .getClient()
                 .create(ApiService.class);
 
         apiService.publicarRegistro(nuevo).enqueue(new Callback<String>() {
