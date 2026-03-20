@@ -27,7 +27,7 @@ public class HomeFragment extends Fragment {
     private Handler handler = new Handler(Looper.getMainLooper());
     private Runnable runnable;
 
-    // Adaptador (lo necesitamos a nivel de clase)
+    // Adaptador
     private AdaptadorConcierto adapter;
 
     @Override

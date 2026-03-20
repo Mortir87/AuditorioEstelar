@@ -2,6 +2,7 @@
 <resources>
     <!-- Colores primarios - Azul Navy -->
     <color name="azul_primario">#1E3A5F</color>
+    <color name="azul_trasparente">#261E3A5F</color>
     <color name="navy_primario_oscuro">#152a45</color>
     <color name="navy_light">#2d5080</color>
     <color name="navy_subtle">#e8ecf1</color>
