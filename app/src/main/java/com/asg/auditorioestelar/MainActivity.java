@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.nav_home) {
                 selectedFragment = new HomeFragment();
             } else if (id == R.id.nav_perfil) {
-                selectedFragment = new RegistroFragment();
+                selectedFragment = new LoginFragment();
             } else if (id == R.id.nav_calendario) {
                 selectedFragment = new CalendarioFragment();
             } else if (id == R.id.nav_menu) {

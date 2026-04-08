@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="70dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pagar con tarjeta"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#2F3E55"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Añade tu tarjeta para proceder al pago"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nº Tarjeta"
+            app:startIconDrawable="@drawable/ic_card"
+            style="@style/Widget.Design.TextInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:paddingStart="45dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:baselineAligned="false">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="MM"
+                android:layout_marginEnd="8dp"
+                app:startIconDrawable="@drawable/ic_calendar"
+                style="@style/Widget.Design.TextInputLayout">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:paddingStart="45dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="AA"
+                android:layout_marginStart="8dp"
+                app:startIconDrawable="@drawable/ic_calendar"
+                style="@style/Widget.Design.TextInputLayout">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:paddingStart="45dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="CVV"
+            app:startIconDrawable="@drawable/ic_lock"
+            style="@style/Widget.Design.TextInputLayout">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberPassword"
+                android:maxLength="3"
+                android:paddingStart="45dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="25dp">
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="35dp"
+                android:src="@drawable/logo_visa"
+                android:layout_marginEnd="15dp"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="35dp"
+                android:src="@drawable/logo_mastercard"
+                android:scaleType="fitCenter" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="35dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CANCELAR"
+                android:layout_marginEnd="15dp"
+                android:backgroundTint="#E8ECF1"
+                android:textColor="#1E3A5F"
+                style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPagar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PAGAR"
+                android:backgroundTint="#D4A047"
+                app:icon="@drawable/ic_star" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -24,4 +24,7 @@ public interface ApiService {
     Call<List<Butaca>> obtenerButacas(@Query("id_sesion") int idSesion);
     @GET("obtener_calendario.php")
     Call<List<EventoCalendario>> obtenerCalendario();
+
+    @POST("login.php")
+    Call<Usuario> loginUsuario(@Body Usuario usuario);
 }
