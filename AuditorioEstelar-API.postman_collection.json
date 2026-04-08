@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "auditorio-estelar-api",
+		"name": "Auditorio Estelar API",
+		"description": "API para el proyecto de teatro/auditorio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	],
+	"item": [
+		{
+			"name": "Conciertos",
+			"item": [
+				{
+					"name": "Mostrar Cartelera",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/mostrar_cartelera.php",
+							"host": ["{{baseUrl}}"],
+							"path": ["mostrar_cartelera.php"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sesiones",
+			"item": [
+				{
+					"name": "Obtener Sesiones (por concierto)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/obtener_sesiones.php?id_concierto=1",
+							"host": ["{{baseUrl}}"],
+							"path": ["obtener_sesiones.php"],
+							"query": [
+								{
+									"key": "id_concierto",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Butacas (por sesión)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/obtener_butacas_sesion.php?id_sesion=1",
+							"host": ["{{baseUrl}}"],
+							"path": ["obtener_butacas_sesion.php"],
+							"query": [
+								{
+									"key": "id_sesion",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Registrar Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Juan\",\n    \"apellido\": \"Pérez\",\n    \"email\": \"juan@ejemplo.com\",\n    \"telefono\": \"600123456\",\n    \"password\": \"clave123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/registrar.php",
+							"host": ["{{baseUrl}}"],
+							"path": ["registrar.php"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reservas",
+			"item": [
+				{
+					"name": "Confirmar Reserva",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_usuario\": 1,\n    \"id_sesion\": 1,\n    \"butacas\": [\n        {\"id_butaca\": 1},\n        {\"id_butaca\": 2}\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/confirmar_reserva.php",
+							"host": ["{{baseUrl}}"],
+							"path": ["confirmar_reserva.php"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
