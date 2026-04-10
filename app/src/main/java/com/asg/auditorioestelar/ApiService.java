@@ -26,5 +26,5 @@ public interface ApiService {
     Call<List<EventoCalendario>> obtenerCalendario();
 
     @POST("login.php")
-    Call<Usuario> loginUsuario(@Body Usuario usuario);
+    Call<LoginResponse> loginUsuario(@Body Usuario usuario);
 }

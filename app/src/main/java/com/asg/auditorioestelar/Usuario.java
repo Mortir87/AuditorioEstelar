@@ -7,6 +7,7 @@ public class Usuario {
     private String email;
     private String telefono;
     private String password;
+    private int id_usuario;
 
     // Constructor vacío (Indispensable para Retrofit)
     public Usuario() {
@@ -36,4 +37,8 @@ public class Usuario {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    public int getIdUsuario() { return id_usuario; }
+    public void setIdUsuario(int id_usuario) { this.id_usuario = id_usuario; } //aunque no se valla a usar lo añadimos.
+
 }

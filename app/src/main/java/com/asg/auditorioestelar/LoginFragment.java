@@ -3,6 +3,7 @@ package com.asg.auditorioestelar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -78,35 +80,61 @@ public class LoginFragment extends Fragment {
         loginUser.setEmail(email);
         loginUser.setPassword(pass);
 
-        apiService.loginUsuario(loginUser).enqueue(new Callback<Usuario>() {
+        apiService.loginUsuario(loginUser).enqueue(new Callback<LoginResponse>() {
+
             @Override
-            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                //debug para capturar el error con el JSON
+                try {
+                    Log.d("JSON", response.errorBody() != null
+                            ? response.errorBody().string()
+                            : "SIN ERROR");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Log.d("CODIGO_HTTP", String.valueOf(response.code()));
+
+                //codigoo de respuesta del servidor
                 if (response.isSuccessful() && response.body() != null) {
-                    Usuario u = response.body();
 
-                    //SHAREDPREFERENCES
-                    SharedPreferences pref = getActivity().getSharedPreferences("AuditorioPrefs", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("logueado", true);
-                    editor.putString("nombre", u.getNombre());
-                    editor.putString("email", u.getEmail());
-                    editor.apply();
+                    LoginResponse res = response.body();
 
+                    if (res.esCorrecto()) {
 
-                    Toast.makeText(getContext(), "Bienvenido " + u.getNombre(), Toast.LENGTH_SHORT).show();
+                        Usuario u = res.getUsuario();
 
-                    // bienvenida y Home
-                    getParentFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, new HomeFragment())
-                            .commit();
+                        //Guardamos sesion
+                        SharedPreferences pref = getActivity().getSharedPreferences("AuditorioPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+
+                        editor.putBoolean("logueado", true);
+                        editor.putInt("id_usuario", u.getIdUsuario());
+                        editor.putString("nombre", u.getNombre());
+                        editor.putString("email", u.getEmail());
+
+                        editor.apply();
+
+                        Toast.makeText(getContext(), "Bienvenido " + u.getNombre(), Toast.LENGTH_SHORT).show();
+
+                        //Volvemos al Home con el login correcto
+                        getParentFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, new HomeFragment())
+                                .commit();
+
+                    } else {
+                        // Volvemos al login por el login incorrecto
+                        Toast.makeText(getContext(), res.getMensaje(), Toast.LENGTH_SHORT).show();
+                    }
+
                 } else {
-                    // error
-                    Toast.makeText(getContext(), "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Error en la respuesta del servidor", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Usuario> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.e("ERROR_RETROFIT", t.getMessage());
+                t.printStackTrace();
                 Toast.makeText(getContext(), "Error de red: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
