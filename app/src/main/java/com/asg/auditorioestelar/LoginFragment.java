@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
@@ -117,6 +118,8 @@ public class LoginFragment extends Fragment {
                         getParentFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_container, new HomeFragment())
                                 .commit();
+                        BottomNavigationView nav = getActivity().findViewById(R.id.bottom_navigation);
+                        nav.setSelectedItemId(R.id.nav_home);
 
                     } else {
                         // Volvemos al login por el login incorrecto
