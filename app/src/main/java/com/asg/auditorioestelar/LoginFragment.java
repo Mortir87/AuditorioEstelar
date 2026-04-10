@@ -104,15 +104,12 @@ public class LoginFragment extends Fragment {
                         Usuario u = res.getUsuario();
 
                         //Guardamos sesion
-                        SharedPreferences pref = getActivity().getSharedPreferences("AuditorioPrefs", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = pref.edit();
-
-                        editor.putBoolean("logueado", true);
-                        editor.putInt("id_usuario", u.getIdUsuario());
-                        editor.putString("nombre", u.getNombre());
-                        editor.putString("email", u.getEmail());
-
-                        editor.apply();
+                        SessionManager session = new SessionManager(getContext());
+                        session.guardarLogin(
+                                u.getIdUsuario(),
+                                u.getNombre(),
+                                u.getEmail()
+                        );
 
                         Toast.makeText(getContext(), "Bienvenido " + u.getNombre(), Toast.LENGTH_SHORT).show();
 
