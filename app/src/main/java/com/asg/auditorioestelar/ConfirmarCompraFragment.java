@@ -32,6 +32,7 @@ public class ConfirmarCompraFragment extends Fragment {
     private Button btnConfirmar;
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
