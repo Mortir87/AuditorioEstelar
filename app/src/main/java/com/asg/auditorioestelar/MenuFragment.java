@@ -86,8 +86,8 @@ public class MenuFragment extends Fragment {
         });
 
         //Ver mi calendario
-        TextView verCalendarioPerfil = view.findViewById(R.id.textViewCalendario);
-        verPerfil.setOnClickListener(v -> {
+        TextView verCalendario = view.findViewById(R.id.textViewVerCalendario);
+        verCalendario.setOnClickListener(v -> {
             BottomNavigationView nav = getActivity().findViewById(R.id.bottom_navigation);
 
             getParentFragmentManager().beginTransaction()

@@ -50,7 +50,7 @@
         android:drawableTint="@color/azul_primario"
         />
     <TextView
-        android:id="@+id/textViewCalendario"
+        android:id="@+id/textViewVerCalendario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" Calendario"
