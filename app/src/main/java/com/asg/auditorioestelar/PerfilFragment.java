@@ -15,7 +15,7 @@ public class PerfilFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
-        SessionManager session = new SessionManager(getContext());
+        SessionManager session = new SessionManager(getContext()); //recordar que es session de usuario
 
         if (!session.estaLogueado()) {
 
