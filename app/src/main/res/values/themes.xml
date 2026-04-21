@@ -19,4 +19,9 @@
         <item name="android:textColor">@color/dorado_primario</item>
     </style>
     <style name="Theme.AuditorioEstelar" parent="Base.Theme.AuditorioEstelar" />
+
+    <!--fotos sobre nosotros redondas -->
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

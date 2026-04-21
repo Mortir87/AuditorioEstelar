@@ -1,4 +1,5 @@
 package com.asg.auditorioestelar;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -98,5 +99,74 @@ public class MenuFragment extends Fragment {
                 nav.setSelectedItemId(R.id.nav_calendario);
             }
         });
+        //Sobre nosotros
+        TextView verSobreNosotros = view.findViewById(R.id.textViewVerSobreNosotros);
+        verSobreNosotros.setOnClickListener(v -> {
+            // Inflamos dialog_sobrenosotros.xml
+            View customView = getLayoutInflater().inflate(R.layout.dialog_sobrenosotros, null);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setView(customView);
+            builder.setPositiveButton("Cerrar", (dialog, which) -> dialog.dismiss());
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+
+
+        //Condiciones de venta
+        TextView verCondiciones = view.findViewById(R.id.textViewCondiciones);
+        verCondiciones.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+            //titulo y datos
+            builder.setTitle("Condiciones de venta : Auditorio Estelar");
+            builder.setMessage("Las condiciones de venta son las siguientes: \n1. Entradas no reembolsables.\n2. Prohibido el acceso con comida.\n3. Uso de mascarilla según normativa.");
+
+            //cerrar
+            builder.setPositiveButton("Aceptar", (dialog, which) -> {
+                dialog.dismiss();
+            });
+
+            //mostrar
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+
+        // Política de Privacidad
+        TextView verPolitica = view.findViewById(R.id.textViewPolitica);
+        verPolitica.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+            //titulo y datos
+            builder.setTitle("Política de Privacidad - Auditodio Estelar");
+            builder.setMessage("En Auditorio Estelar protegemos tus datos:\n\n" +
+                    "1. RESPONSABLE: Auditorio Estelar S.L.\n\n" +
+                    "2. FINALIDAD: Gestionar la venta de entradas y enviarte avisos sobre el evento.\n\n" +
+                    "3. LEGITIMACIÓN: Ejecución del contrato de compraventa.\n\n" +
+                    "4. DERECHOS: Puedes acceder, rectificar y suprimir tus datos en cualquier momento enviando un correo a privacidad@estelar.com.\n\n" +
+                    "5. CONSERVACIÓN: Tus datos se guardarán solo mientras sean necesarios para la gestión del evento y obligaciones legales.");
+
+            builder.setPositiveButton("Cerrar", (dialog, which) -> {
+                dialog.dismiss();
+            });
+
+            // Mas info a otra web aepd
+            builder.setNeutralButton("Más información", (dialog, which) -> {
+
+                //enlazamos con web de derechos
+                String url = "https://www.aepd.es/es/derechos-y-deberes/conoce-tus-derechos";
+
+                //Intent para aepd externa
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+
+        }
     }
-}

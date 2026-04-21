@@ -64,7 +64,7 @@
         android:drawableTint="@color/azul_primario"
         />
     <TextView
-        android:id="@+id/textViewSobreNosotros"
+        android:id="@+id/textViewVerSobreNosotros"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="   Sobre nosotros"
@@ -87,13 +87,38 @@
         android:textColor="@color/azul_primario"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Direccion: "
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/azul_primario"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="start"
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C. de Bernardino Obregón, 26, Arganzuela, 28012 Madrid"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="start"
+            />
+    </LinearLayout>
     <ImageView
         android:id="@+id/iv_mapa_estatico"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ubicacion"
         android:contentDescription="Ubicación en el mapa"
@@ -110,6 +135,7 @@
         android:textColor="@color/azul_primario"
         />
     <TextView
+        android:id="@+id/textViewCondiciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Condiciones de venta"
@@ -119,6 +145,7 @@
         android:textColor="@color/azul_primario"
         />
     <TextView
+        android:id="@+id/textViewPolitica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Politica de privacidad"
