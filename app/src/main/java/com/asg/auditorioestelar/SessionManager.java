@@ -12,6 +12,10 @@ public class SessionManager {
         prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = prefs.edit();
     }
+    public String getIdUsuarioParaHistorial() {
+        int id = prefs.getInt("id_usuario", -1);
+        return String.valueOf(id);
+    }
 
     //guardamos login
     public void guardarLogin(int id, String nombre, String email) {

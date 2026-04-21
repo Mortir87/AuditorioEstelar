@@ -30,9 +30,13 @@ public class RecuperarPasswordFragment extends Fragment {
             String correo = edtCorreo.getText().toString().trim();
             if (correo.isEmpty()) {
                 Toast.makeText(getContext(), "Escribe tu correo electrónico", Toast.LENGTH_SHORT).show();
-            } else {
+            // Correo
+            } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+                edtCorreo.setError("El formato del correo no es válido (correo@ejemplo.com)");
+            }
+            else {
                 // API
-                Toast.makeText(getContext(), "Instrucciones enviadas a: " + correo, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Nueva contraseña enviada a: " + correo, Toast.LENGTH_LONG).show();
                 volverAlLogin();
             }
         });

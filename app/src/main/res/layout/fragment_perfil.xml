@@ -6,6 +6,12 @@
     android:gravity="center"
     android:padding="24dp">
 
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/logo_ae_sl_sf"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"/>
 
     <TextView
         android:id="@+id/txtTituloPerfil"
@@ -14,7 +20,17 @@
         android:text="Mi Perfil"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="#1E3A5F"
         android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Gracias por tu compra!"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#D4A047"
+        android:layout_marginBottom="8dp"/>
 
 
     <TextView
@@ -22,8 +38,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nombre Usuario"
+        android:textColor="#1E3A5F"
         android:textSize="18sp"
         android:layout_marginBottom="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Historial de Entradas"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHistorial"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical" />
+
+    <!-- Botón pdf -->
+    <Button
+        android:id="@+id/btnDescargarPDF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descargar PDF"
+        android:backgroundTint="#D4A047"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="20dp"
+        />
 
     <!-- Botón logout -->
     <Button
@@ -31,6 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cerrar sesión"
-        android:textColor="@android:color/white"/>
+        android:backgroundTint="#E8ECF1"
+        android:textColor="#1E3A5F" />
 
 </LinearLayout>

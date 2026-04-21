@@ -27,4 +27,10 @@ public interface ApiService {
 
     @POST("login.php")
     Call<LoginResponse> loginUsuario(@Body Usuario usuario);
+
+    @POST("confirmar_compra.php")
+    Call<Map<String, Object>> ejecutarCompra(@Body Map<String, Object> body);
+
+    @GET("obtener_historial.php")
+    Call<List<Entrada>> getHistorial(@Query("id_usuario") String idUsuario);
 }

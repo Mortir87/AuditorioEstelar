@@ -45,9 +45,17 @@ public class RegistroFragment extends Fragment {
     }
 
     private void enviarRegistro() {
+        String correo = edtCorreo.getText().toString().trim();
         String pass = edtPassword.getText().toString().trim();
         String confirm = edtConfirmar.getText().toString().trim();
 
+        if (correo.isEmpty()) {
+            edtCorreo.setError("El correo es obligatorio");
+            return;
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+            edtCorreo.setError("Formato de correo inválido (correo@ejemplo.com)");
+            return;
+        }
         if (!pass.equals(confirm)) {
             Toast.makeText(getContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
             return;
@@ -67,7 +75,12 @@ public class RegistroFragment extends Fragment {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(getContext(), response.body(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "¡Usuario registrado!", Toast.LENGTH_SHORT).show();
+
+                    // Volver al Login si el registro fue exitoso
+                    if (getActivity() != null) {
+                        getParentFragmentManager().popBackStack();
+                    }
                 } else {
                     Toast.makeText(getContext(), "Error: " + response.code(), Toast.LENGTH_SHORT).show();
                 }

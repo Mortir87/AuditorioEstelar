@@ -21,6 +21,8 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.Map;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 public class ConfirmarCompraFragment extends Fragment {
 
@@ -117,6 +119,13 @@ public class ConfirmarCompraFragment extends Fragment {
                 @Override
                 public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                     if (response.isSuccessful() && response.body() != null && Boolean.TRUE.equals(response.body().get("success"))) {
+                        //pdf
+                        SharedPreferences prefs = getActivity().getSharedPreferences("AuditorioPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("pdf_titulo", titulo);
+                        editor.putString("pdf_fecha", fecha);
+                        editor.putString("pdf_total", txtTotal.getText().toString());
+                        editor.apply();
                         Toast.makeText(getContext(), "Reserva realizada ✔", Toast.LENGTH_LONG).show();
                         getParentFragmentManager().popBackStack();
                     } else {

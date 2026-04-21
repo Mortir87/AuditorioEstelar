@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 public class AdaptadorButacas extends RecyclerView.Adapter<AdaptadorButacas.ViewHolder> {
 
     private List<Butaca> lista;
@@ -71,6 +74,16 @@ public class AdaptadorButacas extends RecyclerView.Adapter<AdaptadorButacas.View
                 holder.itemView.setOnClickListener(v -> {
                     b.setSeleccionada(!b.getSeleccionada());
                     notifyItemChanged(position);
+
+
+                       //Guardar butaca para el pdf
+                    if (b.getSeleccionada()) {
+                        SharedPreferences prefs = v.getContext().getSharedPreferences("AuditorioPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+
+                        editor.putString("butaca", String.valueOf(b.getNumero()));
+                        editor.apply();
+                    }
                 });
                 break;
         }

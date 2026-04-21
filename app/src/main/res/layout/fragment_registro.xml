@@ -92,7 +92,8 @@
                     android:id="@+id/Correo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="correo@ejemplo.es" />
+                    android:hint="correo@ejemplo.es"
+                    android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -112,7 +113,10 @@
                     android:id="@+id/Telefono"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="+34606232221" />
+                    android:hint="+34606232221"
+                    android:inputType="phone"
+                    android:maxLength="9"
+                    android:digits="0123456789"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
