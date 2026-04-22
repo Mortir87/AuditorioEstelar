@@ -38,6 +38,18 @@ public class ButacasFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_butacas, container, false);
 
+        //actualizamos seccion por si no esta loggeado
+        SessionManager session = new SessionManager(getContext());
+
+        if (!session.estaLogueado()) {
+
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new LoginFragment())
+                    .commit();
+
+            return null;
+        }
+
         recyclerPatio = view.findViewById(R.id.recyclerPatio);
         recyclerAnfiteatro = view.findViewById(R.id.recyclerAnfiteatro);
         btnContinuar = view.findViewById(R.id.btnContinuarCompra);

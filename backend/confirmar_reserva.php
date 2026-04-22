@@ -74,6 +74,12 @@ try {
 
     // Si es correcto
     $conexion->commit();
+	
+	//cerramos stmt
+	$stmt_check->close();
+    $stmt_rb->close();
+    $stmt_update->close();
+	
 
     echo json_encode([
         "success" => true,
@@ -91,4 +97,6 @@ try {
         "error" => $e->getMessage()
     ]);
 }
+//cerramos conexion-
+$conexion->close();
 ?>

@@ -33,6 +33,7 @@ public class ConfirmarCompraFragment extends Fragment {
 
     private Button btnConfirmar;
 
+    private SessionManager session; //usuario
 
     @Nullable
     @Override
@@ -49,6 +50,9 @@ public class ConfirmarCompraFragment extends Fragment {
 
         btnConfirmar = view.findViewById(R.id.btnConfirmar);
         btnConfirmar.setOnClickListener(v -> confirmarReserva());
+
+        session = new SessionManager(getContext()); //recordar que es session de usuario
+
 
         // Recibir datos
         if (getArguments() != null) {
@@ -98,7 +102,8 @@ public class ConfirmarCompraFragment extends Fragment {
 
             // CREAMOS un Map para enviar como JSON
             Map<String, Object> datos = new HashMap<>();
-            datos.put("id_usuario", 8); // luego cambiar por el usuario logueado HARDCODE USER TEST
+            //datos.put("id_usuario", 8); // luego cambiar por el usuario logueado HARDCODE USER TEST
+            datos.put("id_usuario", session.getIdUsuario());
             datos.put("id_sesion", idSesion);
 
             // Lista de butacas
