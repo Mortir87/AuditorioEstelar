@@ -37,7 +37,7 @@ public class ReservaPendiente {
         return total;
     }
 
-    // (opcional) SETTERS si luego quieres actualizar UI sin recargar todo
+    // SETTERS si
     public void setIdReserva(int idReserva) {
         this.idReserva = idReserva;
     }
