@@ -37,7 +37,9 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.layout.element.Text;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,7 +47,7 @@ import retrofit2.Response;
 
 public class PerfilFragment extends Fragment {
 
-    private TextView tvUsuario;
+    private TextView tvUsuario, tvEmail;
     private Button btnCerrarSesion, btnDescargarPDF;
     private SessionManager sessionManager;
 
@@ -54,21 +56,48 @@ public class PerfilFragment extends Fragment {
     private HistorialAdapter adapter;
     private List<Entrada> listaEntradas = new ArrayList<>();
 
+    private RecyclerView rvReservasPendientes;
+    private AdaptadorReservaPendiente adapterPendientes;
+    private List<ReservaPendiente> listaPendientes = new ArrayList<>();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
+        sessionManager = new SessionManager(getContext());
+
+        if (!sessionManager.estaLogueado()) {
+
+            //No Login - ir a login
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new LoginFragment())
+                    .commit();
+
+            return null;
+        }
 
         tvUsuario = view.findViewById(R.id.txtNombre);
-        btnCerrarSesion = view.findViewById(R.id.btnLogout);
-        btnDescargarPDF = view.findViewById(R.id.btnDescargarPDF);
+        tvEmail = view.findViewById(R.id.txtEmail);
+
+        btnCerrarSesion = view.findViewById(R.id.btnCerrarSesion);
+        //btnDescargarPDF = view.findViewById(R.id.btnDescargarPDF);
 
         //CONFIGURACIÓN RECYCLERVIEW
         rvHistorial = view.findViewById(R.id.rvHistorial);
         rvHistorial.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        sessionManager = new SessionManager(getContext());
-        tvUsuario.setText(sessionManager.getNombre());
+        rvReservasPendientes = view.findViewById(R.id.rvReservasPendientes);
+        rvReservasPendientes.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //datos usuario reales
+
+        String nombre = sessionManager.getNombre();
+        String email = sessionManager.getEmail();
+
+        tvUsuario.setText(nombre);
+        tvEmail.setText(email);
+
 
         btnCerrarSesion.setOnClickListener(v -> {
             sessionManager.cerrarSesion();
@@ -77,15 +106,86 @@ public class PerfilFragment extends Fragment {
                     .commit();
         });
 
-        btnDescargarPDF.setOnClickListener(v -> generarEntradaPDF());
+        //btnDescargarPDF.setOnClickListener(v -> generarEntradaPDF());
         cargarHistorial();
+
+        cargarReservasPendientes();
 
         return view;
     }
+    //reservas pendientes
+    private void cargarReservasPendientes() {
+
+        int idUsuario = sessionManager.getIdUsuario();
+
+        ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
+
+        Call<List<ReservaPendiente>> call = apiService.getReservasPendientes(idUsuario);
+
+        call.enqueue(new Callback<List<ReservaPendiente>>() {
+            @Override
+            public void onResponse(Call<List<ReservaPendiente>> call, Response<List<ReservaPendiente>> response) {
+
+                if (response.isSuccessful() && response.body() != null) {
+
+                    listaPendientes = response.body();
+
+                    adapterPendientes = new AdaptadorReservaPendiente(
+                            listaPendientes,
+                            reserva -> pagarReserva(reserva.getIdReserva())
+                    );
+
+                    rvReservasPendientes.setAdapter(adapterPendientes);
+                }
+            }
+        //pagar reserva
+        private void pagarReserva(int idReserva) {
+
+            ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
+
+            Call<ResponseBody> call = apiService.pagarReserva(idReserva);
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    if (response.isSuccessful()) {
+
+                        Toast.makeText(getContext(),
+                                "Entrada pagada correctamente",
+                                Toast.LENGTH_SHORT).show();
+
+                        // refrescar listas
+                        cargarReservasPendientes();
+                        cargarHistorial();
+                    }
+                }
+
+        @Override
+        public void onFailure(Call<ResponseBody> call, Throwable t) {
+            Toast.makeText(getContext(),
+                    "Error pago: " + t.getMessage(),
+                    Toast.LENGTH_SHORT).show();
+        }
+    });
+}
+            @Override
+            public void onFailure(Call<List<ReservaPendiente>> call, Throwable t) {
+                Toast.makeText(getContext(),
+                        "Error reservas: " + t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 
     // llamada a la api
     private void cargarHistorial() {
         String idUsuario = sessionManager.getIdUsuarioParaHistorial();
+
+        // log para fallos
+        android.util.Log.d("HISTORIAL", "idUsuario = " + idUsuario);
 
         ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
         Call<List<Entrada>> call = apiService.getHistorial(idUsuario);
@@ -93,6 +193,21 @@ public class PerfilFragment extends Fragment {
         call.enqueue(new Callback<List<Entrada>>() {
             @Override
             public void onResponse(Call<List<Entrada>> call, Response<List<Entrada>> response) {
+                //log historial
+                android.util.Log.d("HISTORIAL",
+                        "HTTP code = " + response.code());
+
+                android.util.Log.d("HISTORIAL",
+                        "isSuccessful = " + response.isSuccessful());
+
+                if (response.body() != null) {
+                    android.util.Log.d("HISTORIAL",
+                            "Entradas recibidas = " + response.body().size());
+                } else {
+                    android.util.Log.d("HISTORIAL",
+                            "Body es NULL");
+                }
+
                 if (response.isSuccessful() && response.body() != null) {
                     listaEntradas = response.body();
                     adapter = new HistorialAdapter(listaEntradas);
@@ -102,6 +217,7 @@ public class PerfilFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Entrada>> call, Throwable t) {
+                android.util.Log.e("HISTORIAL","ERROR RETROFIT: " + t.getMessage(), t);
                 Toast.makeText(getContext(), "Error de red: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

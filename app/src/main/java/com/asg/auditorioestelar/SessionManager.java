@@ -45,6 +45,8 @@ public class SessionManager {
     public String getNombre(){
         return prefs.getString("nombre", "");
     }
+    public String getApellido(){ return prefs.getString("apellido", "");
+    }
 
     public String getEmail(){
         return prefs.getString("email", "");

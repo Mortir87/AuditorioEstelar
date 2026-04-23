@@ -1,81 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp">
+    android:layout_marginTop="40dp">
 
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/logo_ae_sl_sf"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="20dp"/>
-
-    <TextView
-        android:id="@+id/txtTituloPerfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mi Perfil"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#1E3A5F"
-        android:layout_marginBottom="20dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="¡Gracias por tu compra!"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#D4A047"
-        android:layout_marginBottom="8dp"/>
-
-
-    <TextView
-        android:id="@+id/txtNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nombre Usuario"
-        android:textColor="#1E3A5F"
-        android:textSize="18sp"
-        android:layout_marginBottom="30dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Historial de Entradas"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="8dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvHistorial"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="vertical" />
-
-    <!-- Botón pdf -->
-    <Button
-        android:id="@+id/btnDescargarPDF"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Descargar PDF"
-        android:backgroundTint="#D4A047"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="20dp"
-        />
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <!-- Botón logout -->
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cerrar sesión"
-        android:backgroundTint="#E8ECF1"
-        android:textColor="#1E3A5F" />
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_person"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            app:tint="@color/azul_primario" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtTituloPerfil"
+            android:text="Mi Perfil"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/azul_primario"
+            android:layout_marginBottom="5dp"/>
+
+
+        <!-- Datos -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtNombre"
+            android:text="Nombre Usuario"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtEmail"
+            android:text="correo@ejemplo.com"
+            android:layout_marginBottom="10dp"/>
+
+
+        <!-- RESERVAS PENDIENTES -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reservas pendientes"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvReservasPendientes"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:scrollbars="vertical"/>
+
+
+        <!-- HISTORIAL PAGADAS -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Entradas compradas"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:scrollbars="vertical"/>
+
+
+        <Button
+            android:id="@+id/btnCerrarSesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cerrar sesión"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#E8ECF1"
+            android:textColor="@color/azul_primario"/>
+
+    </LinearLayout>
+</ScrollView>

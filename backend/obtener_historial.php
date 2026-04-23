@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include 'config/conexion.php';
 
 //ID del usuario
 $id_usuario = $_GET['id_usuario'];

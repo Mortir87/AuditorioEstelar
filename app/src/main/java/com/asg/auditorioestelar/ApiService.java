@@ -3,8 +3,12 @@ package com.asg.auditorioestelar;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -33,4 +37,13 @@ public interface ApiService {
 
     @GET("obtener_historial.php")
     Call<List<Entrada>> getHistorial(@Query("id_usuario") String idUsuario);
+
+    @GET("obtener_reservas_pendientes.php")
+    Call<List<ReservaPendiente>> getReservasPendientes(@Query("id_usuario") int idUsuario);
+
+    @FormUrlEncoded
+    @POST("pagar_reserva.php")
+    Call<ResponseBody> pagarReserva(
+            @Field("id_reserva") int idReserva
+    );
 }
