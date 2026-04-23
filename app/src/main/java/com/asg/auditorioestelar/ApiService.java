@@ -41,9 +41,8 @@ public interface ApiService {
     @GET("obtener_reservas_pendientes.php")
     Call<List<ReservaPendiente>> getReservasPendientes(@Query("id_usuario") int idUsuario);
 
-    @FormUrlEncoded
     @POST("pagar_reserva.php")
     Call<ResponseBody> pagarReserva(
-            @Field("id_reserva") int idReserva
+            @Body Map<String,Integer> body
     );
 }

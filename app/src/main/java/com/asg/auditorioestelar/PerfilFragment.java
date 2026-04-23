@@ -1,8 +1,5 @@
 package com.asg.auditorioestelar;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,7 +25,9 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+
 // pdf
+import com.itextpdf.barcodes.BarcodeQRCode;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -36,10 +35,7 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.colors.ColorConstants;
-import com.itextpdf.layout.element.Text;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,14 +44,14 @@ import retrofit2.Response;
 public class PerfilFragment extends Fragment {
 
     private TextView tvUsuario, tvEmail;
-    private Button btnCerrarSesion, btnDescargarPDF;
+    private Button btnCerrarSesion;
     private SessionManager sessionManager;
 
-    // historial entradas
+    /* historial entradas no se implementa
     private RecyclerView rvHistorial;
     private HistorialAdapter adapter;
     private List<Entrada> listaEntradas = new ArrayList<>();
-
+    */
     private RecyclerView rvReservasPendientes;
     private AdaptadorReservaPendiente adapterPendientes;
     private List<ReservaPendiente> listaPendientes = new ArrayList<>();
@@ -83,9 +79,10 @@ public class PerfilFragment extends Fragment {
         btnCerrarSesion = view.findViewById(R.id.btnCerrarSesion);
         //btnDescargarPDF = view.findViewById(R.id.btnDescargarPDF);
 
-        //CONFIGURACIÓN RECYCLERVIEW
+        /* CONFIGURACIÓN RECYCLERVIEW venta no se implementa
         rvHistorial = view.findViewById(R.id.rvHistorial);
         rvHistorial.setLayoutManager(new LinearLayoutManager(getContext()));
+         */
 
         rvReservasPendientes = view.findViewById(R.id.rvReservasPendientes);
         rvReservasPendientes.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -107,8 +104,7 @@ public class PerfilFragment extends Fragment {
         });
 
         //btnDescargarPDF.setOnClickListener(v -> generarEntradaPDF());
-        cargarHistorial();
-
+        //cargarHistorial(); No se implementa
         cargarReservasPendientes();
 
         return view;
@@ -132,43 +128,13 @@ public class PerfilFragment extends Fragment {
 
                     adapterPendientes = new AdaptadorReservaPendiente(
                             listaPendientes,
-                            reserva -> pagarReserva(reserva.getIdReserva())
+                            reserva -> generarEntradaPDF(reserva)
                     );
 
                     rvReservasPendientes.setAdapter(adapterPendientes);
                 }
             }
-        //pagar reserva
-        private void pagarReserva(int idReserva) {
 
-            ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
-
-            Call<ResponseBody> call = apiService.pagarReserva(idReserva);
-
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                    if (response.isSuccessful()) {
-
-                        Toast.makeText(getContext(),
-                                "Entrada pagada correctamente",
-                                Toast.LENGTH_SHORT).show();
-
-                        // refrescar listas
-                        cargarReservasPendientes();
-                        cargarHistorial();
-                    }
-                }
-
-        @Override
-        public void onFailure(Call<ResponseBody> call, Throwable t) {
-            Toast.makeText(getContext(),
-                    "Error pago: " + t.getMessage(),
-                    Toast.LENGTH_SHORT).show();
-        }
-    });
-}
             @Override
             public void onFailure(Call<List<ReservaPendiente>> call, Throwable t) {
                 Toast.makeText(getContext(),
@@ -177,9 +143,70 @@ public class PerfilFragment extends Fragment {
             }
         });
     }
+    //pagar reserva No se implementa
+    /*
+    private void pagarReserva(int idReserva){
+
+        android.util.Log.d(
+                "PAGAR",
+                "Entró id="+idReserva
+        );
+
+        ApiService apiService =
+                RetrofitClient.getClient().create(ApiService.class);
+
+        Map<String,Integer> body = new HashMap<>();
+        body.put("id_reserva", idReserva);
+
+        Call<ResponseBody> call=
+                apiService.pagarReserva(body);
+
+        call.enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(
+                    Call<ResponseBody> call,
+                    Response<ResponseBody> response) {
+
+                 if(response.isSuccessful()){
+
+                    Toast.makeText(
+                            getContext(),
+                            "Reserva pagada",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+                try {
+                    String respuesta = response.body().string();
+                    android.util.Log.d("PAGO", respuesta );
+                    Toast.makeText(
+                            getContext(),
+                            respuesta,
+                            Toast.LENGTH_LONG
+                    ).show();
+
+                } catch (Exception e){ e.printStackTrace();
+                }
 
 
+                    //recargar automáticamente
+                    cargarReservasPendientes();
+                    cargarHistorial();
+                }
 
+            @Override
+            public void onFailure(
+                    Call<ResponseBody> call,
+                    Throwable t) {
+                android.util.Log.e("PAGO", t.getMessage() );
+                Toast.makeText(
+                        getContext(),
+                        "Error: "+t.getMessage(),
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
+    }
     // llamada a la api
     private void cargarHistorial() {
         String idUsuario = sessionManager.getIdUsuarioParaHistorial();
@@ -221,10 +248,123 @@ public class PerfilFragment extends Fragment {
                 Toast.makeText(getContext(), "Error de red: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }*/
+
+    private void generarEntradaPDF(ReservaPendiente reserva) {
+
+        String titulo = reserva.getTitulo();
+        String fecha = reserva.getFecha();
+        String total = String.valueOf(reserva.getTotal());
+        String butacas = reserva.getButacas();
+        String id = String.valueOf(reserva.getIdReserva());
+
+        File file = new File(requireContext().getCacheDir(),
+                "entrada_" + id + ".pdf");
+
+        try {
+            PdfWriter writer = new PdfWriter(new FileOutputStream(file));
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+            // logo en pdf
+            Drawable d = getContext().getDrawable(R.drawable.logo_ae_sl_sf);
+            if (d != null) {
+                Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 10, stream);
+                ImageData imageData = ImageDataFactory.create(stream.toByteArray());
+                Image logo = new Image(imageData).setWidth(100);
+                logo.setHorizontalAlignment(com.itextpdf.layout.properties.HorizontalAlignment.CENTER);
+                document.add(logo);
+            }
+
+
+            // Cabecera
+
+            Paragraph cabecera = new Paragraph("AUDITORIO ESTELAR")
+                    .setBold()
+                    .setFontSize(24);
+            cabecera.setTextAlignment(com.itextpdf.layout.properties.TextAlignment.CENTER);
+            document.add(cabecera);
+
+            Paragraph subtitulo = new Paragraph("ENTRADA OFICIAL")
+                    .setFontSize(14);
+            subtitulo.setTextAlignment(com.itextpdf.layout.properties.TextAlignment.CENTER);
+            document.add(subtitulo);
+
+            document.add(new Paragraph(" "));
+
+
+
+
+            //Cuerpo
+            document.add(new Paragraph("EVENTO: ")
+                    .setBold()
+                    .setFontSize(12));
+
+            document.add(new Paragraph(titulo)
+                    .setFontSize(16));
+
+            document.add(new Paragraph(" "));
+
+            document.add(new Paragraph("FECHA:")
+                    .setBold()
+                    .setFontSize(12));
+
+            document.add(new Paragraph(fecha)
+                    .setFontSize(14));
+
+            document.add(new Paragraph(" "));
+
+            document.add(new Paragraph("BUTACAS:")
+                    .setBold()
+                    .setFontSize(12));
+
+            document.add(new Paragraph(butacas)
+                    .setFontSize(14));
+
+            // Total
+            Paragraph totalP = new Paragraph("TOTAL: " + total + " €")
+                    .setBold()
+                    .setFontSize(18);
+            totalP.setTextAlignment(com.itextpdf.layout.properties.TextAlignment.CENTER);
+
+            document.add(totalP);
+
+            // ID_RESERVA
+            Paragraph idP = new Paragraph("ID RESERVA: #" + id)
+                    .setFontSize(10);
+            idP.setTextAlignment(com.itextpdf.layout.properties.TextAlignment.CENTER);
+            document.add(idP);
+
+            // QR
+            BarcodeQRCode qrCode = new BarcodeQRCode(id);
+            Image qrImage = new Image(qrCode.createFormXObject(pdf));
+
+            qrImage.setWidth(200);
+            qrImage.setHorizontalAlignment(com.itextpdf.layout.properties.HorizontalAlignment.CENTER);
+
+            document.add(new Paragraph(" "));
+            document.add(qrImage);
+
+            document.add(new Paragraph(" "));
+            document.add(new Paragraph("Entrada válida - Auditorio Estelar")
+                    .setFontSize(10)
+                    .setTextAlignment(com.itextpdf.layout.properties.TextAlignment.CENTER));
+
+            document.close();
+
+            abrirPDF(file);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    private void generarEntradaPDF() {
+    private void generarEntradaPDFAntiguo(ReservaPendiente reserva) {
         // datos para el pdf
+        /* Metodo antigo con ultima reserva
         SharedPreferences prefs = getActivity().getSharedPreferences("AuditorioPrefs", Context.MODE_PRIVATE);
+
         String titulo = prefs.getString("pdf_titulo", "Sin título");
         String fecha = prefs.getString("pdf_fecha", "Sin fecha");
         String total = prefs.getString("pdf_total", "0.0");
@@ -234,6 +374,12 @@ public class PerfilFragment extends Fragment {
             Toast.makeText(getContext(), "No hay ninguna entrada reciente", Toast.LENGTH_SHORT).show();
             return;
         }
+
+         */
+        String titulo = reserva.getTitulo();
+        String fecha = reserva.getFecha();
+        String total = String.valueOf(reserva.getTotal());
+        String numButaca = reserva.getButacas();
 
         // preparar el pdf
         File file = new File(getContext().getCacheDir(), "entrada.pdf");
@@ -247,7 +393,7 @@ public class PerfilFragment extends Fragment {
             if (d != null) {
                 Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 10, stream);
                 ImageData imageData = ImageDataFactory.create(stream.toByteArray());
                 Image logo = new Image(imageData).setWidth(100);
                 logo.setMarginLeft(200f);
@@ -255,8 +401,16 @@ public class PerfilFragment extends Fragment {
             }
 
             // contenido del pdf
-            document.add(new Paragraph("AUDITORIO ESTELAR").setBold().setFontSize(22));
 
+            //CABECERA
+
+            Paragraph cabecera = new Paragraph("AUDITORIO ESTELAR")
+                    .setBold()
+                    .setFontSize(24);
+            cabecera.setTextAlignment(com.itextpdf.layout.properties.TextAlignment.CENTER);
+            document.add(cabecera);
+
+            //Cuerpo
 
             document.add(new Paragraph("Evento: " + titulo));
             document.add(new Paragraph("Fecha: " + fecha));

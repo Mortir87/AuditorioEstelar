@@ -55,4 +55,5 @@ dependencies {
     implementation("com.itextpdf:kernel:7.2.5")
     implementation("com.itextpdf:layout:7.1.15")
     implementation("com.itextpdf:layout:7.2.5")
+    implementation("com.itextpdf:itext7-core:7.2.5")
 }

@@ -58,14 +58,17 @@
 
         </LinearLayout>
 
-        <!-- Boton pagar -->
+        <!-- Boton Ver entrada. -->
         <Button
-            android:id="@+id/btnPagarReserva"
-            android:layout_width="90dp"
+            android:id="@+id/btnVerEntrada"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="150dp"
             android:layout_height="40dp"
-            android:text="Pagar"
+            android:text="Descargar entrada"
             android:textSize="12sp"
-            android:backgroundTint="#D4A047"
+            android:backgroundTint="@color/dorado_primario"
+            android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:layout_gravity="center_vertical"/>
 

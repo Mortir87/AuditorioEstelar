@@ -14,13 +14,13 @@ import java.util.List;
 public class AdaptadorReservaPendiente extends RecyclerView.Adapter<AdaptadorReservaPendiente.ViewHolder> {
 
     private List<ReservaPendiente> lista;
-    private OnPagoClickListener listener;
+    private OnReservaClick listener;
 
-    public interface OnPagoClickListener {
-        void onPagarClick(ReservaPendiente reserva);
+    public interface OnReservaClick {
+        void onReservaClick(ReservaPendiente reserva);
     }
 
-    public AdaptadorReservaPendiente(List<ReservaPendiente> lista, OnPagoClickListener listener) {
+    public AdaptadorReservaPendiente(List<ReservaPendiente> lista, OnReservaClick listener) {
         this.lista = lista;
         this.listener = listener;
     }
@@ -31,6 +31,7 @@ public class AdaptadorReservaPendiente extends RecyclerView.Adapter<AdaptadorRes
 
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_reserva_pendiente, parent, false);
+
 
         return new ViewHolder(v);
     }
@@ -45,11 +46,12 @@ public class AdaptadorReservaPendiente extends RecyclerView.Adapter<AdaptadorRes
         holder.butacas.setText("Butacas: " + r.getButacas());
         holder.total.setText(r.getTotal() + "€");
 
-        holder.btnPagar.setOnClickListener(v -> {
+        holder.btnVerEntrada.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onPagarClick(r);
+                listener.onReservaClick(r);
             }
         });
+
     }
 
     @Override
@@ -60,7 +62,7 @@ public class AdaptadorReservaPendiente extends RecyclerView.Adapter<AdaptadorRes
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView titulo, fecha, butacas, total;
-        Button btnPagar;
+        Button btnVerEntrada;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,7 +71,7 @@ public class AdaptadorReservaPendiente extends RecyclerView.Adapter<AdaptadorRes
             fecha = itemView.findViewById(R.id.txtFechaReserva);
             butacas = itemView.findViewById(R.id.txtButacasReserva);
             total = itemView.findViewById(R.id.txtTotalReserva);
-            btnPagar = itemView.findViewById(R.id.btnPagarReserva);
+            btnVerEntrada = itemView.findViewById(R.id.btnVerEntrada);
         }
     }
 }
