@@ -1,4 +1,4 @@
-package com.asg.auditorioestelar;
+/* package com.asg.auditorioestelar;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,3 +41,4 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.View
         }
     }
 }
+*/

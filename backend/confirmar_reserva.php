@@ -6,7 +6,7 @@ require_once "config/conexion.php";
 $data = json_decode(file_get_contents("php://input"), true);
 
 if (!$data) {
-    echo json_encode(["success" => false, "error" => "JSON vacío"]);
+    echo json_encode(["success" => false, "error" => "JSON vaci�o"]);
     exit;
 }
 
@@ -38,7 +38,7 @@ try {
     );
 
     $stmt_update = $conexion->prepare(
-        "UPDATE butaca_sesion SET estado='RESERVADA' WHERE id_sesion=? AND id_butaca=?"
+        "UPDATE butaca_sesion SET estado='VENDIDA' WHERE id_sesion=? AND id_butaca=?"
     );
 
     $stmt_check = $conexion->prepare(
@@ -50,10 +50,10 @@ try {
         $id_butaca = $b['id_butaca'] ?? 0;
 
         if ($id_butaca <= 0) {
-            throw new Exception("ID de butaca inválido");
+            throw new Exception("ID de butaca invalido");
         }
 
-        // Comprobamos si está disponible
+        // Comprobamos si esta disponible
         $stmt_check->bind_param("ii", $id_sesion, $id_butaca);
         $stmt_check->execute();
         $result = $stmt_check->get_result();
@@ -97,6 +97,6 @@ try {
         "error" => $e->getMessage()
     ]);
 }
-//cerramos conexion-
+//cerramos conexion
 $conexion->close();
 ?>

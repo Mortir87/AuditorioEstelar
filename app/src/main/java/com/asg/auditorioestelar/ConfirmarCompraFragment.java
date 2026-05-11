@@ -131,7 +131,7 @@ public class ConfirmarCompraFragment extends Fragment {
                         editor.putString("pdf_fecha", fecha);
                         editor.putString("pdf_total", txtTotal.getText().toString());
                         editor.apply();
-                        Toast.makeText(getContext(), "Reserva realizada ✔", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Compra realizada ✔ \nRecuerde pasar por taquilla para el pago ", Toast.LENGTH_LONG).show();
                         getParentFragmentManager().popBackStack();
                     } else {
                         Toast.makeText(getContext(), "Error al reservar", Toast.LENGTH_SHORT).show();
