@@ -46,10 +46,7 @@ El proyecto sigue una arquitectura cliente-servidor dividida en tres capas:
 - Modelo relacional normalizado
 - Integridad referencial mediante claves foráneas
 
-
-
 ## Stack tecnológico
-
 | Categoría | Tecnologías |
 |---|---|
 | Frontend | Java, XML, Material Design |
@@ -63,7 +60,84 @@ El proyecto sigue una arquitectura cliente-servidor dividida en tres capas:
 | Testing | Postman |
 | Control de versiones | Git + GitHub |
 
+## Instalación y despliegue
 
+### Clonar repositorio
+```bash
+git clone https://github.com/Mortir87/AuditorioEstelar.git
+cd AuditorioEstelar
+```
+
+### Base de datos
+El script SQL completo se encuentra en:
+```text
+    /database/auditorio_estelar.sql
+```
+
+Este archivo incluye:
+- Creación de tablas
+- Relaciones y claves foráneas
+- Datos de prueba (menos usuarios y reservas)
+- Conciertos demo
+- Sesiones futuras automáticas
+- Generación de butacas por sesión
+
+---
+
+### Docker Compose
+El backend se ejecuta mediante Docker Compose.
+
+Servicios incluidos:
+- Apache + PHP 8.2
+- MariaDB
+
+Ejecutar:
+```bash
+docker compose up -d
+```
+
+La API REST quedará disponible en:
+```text
+http://localhost:8080
+```
+
+---
+
+### Cloudflare Tunnel (Opcional)
+
+Para exponer temporalmente el backend a internet:
+
+```bash
+nohup cloudflared tunnel --url http://localhost:8080 > tunel.log 2>&1 &
+```
+
+Obtener URL pública:
+
+```bash
+cat tunel.log
+```
+
+Detener túnel:
+
+```bash
+sudo pkill cloudflared
+```
+
+---
+
+### Configuración Android
+
+Modificar la URL base de Retrofit en el cliente Android para utilizar:
+- localhost
+- o la URL pública de Cloudflare Tunnel
+
+---
+
+### Ejecutar aplicación
+
+Abrir el proyecto con Android Studio y ejecutar en:
+- Emulador Android
+- Dispositivo físico
 
 ## Funcionalidades implementadas
 
