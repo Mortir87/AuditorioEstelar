@@ -1,0 +1,30 @@
+services:
+  # Servidor de Base de Datos
+  db:
+    image: mariadb:latest
+    container_name: teatro-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Password
+      MYSQL_DATABASE: teatro_proyecto
+      MYSQL_USER: ProyectoFinal
+      MYSQL_PASSWORD: Password
+    volumes:
+      - ./db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  # Servidor Web con PHP
+  web:
+    # instalamos mysqli
+    image: php:8.2-apache
+    container_name: teatro-web
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    volumes:
+      - ./www:/var/www/html
+
+    command: sh -c "docker-php-ext-install mysqli pdo pdo_mysql && apache2-foreground"
