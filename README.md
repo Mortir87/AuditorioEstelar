@@ -1,6 +1,38 @@
 # Proyecto Intermodular
 Proyecto final Intermodular de 2º DAM
 
+## Setup Local con Docker
+
+### Requisitos
+- Docker y Docker Compose instalados
+
+### Arrancar
+```bash
+docker-compose up -d --build
+```
+
+### Servicios
+| Servicio | URL | Credenciales |
+|----------|-----|--------------|
+| API PHP | http://localhost:8080 | - |
+| MySQL | localhost:3306 | root / root |
+| Base de datos | teatro_proyecto | - |
+
+### Detener
+```bash
+docker-compose down
+```
+
+### Reiniciar con datos limpios
+```bash
+docker-compose down -v && docker-compose up -d
+```
+
+### Probar la API
+Importar `AuditorioEstelar-API.postman_collection.json` en Postman y usar la variable `baseUrl` según el entorno.
+
+---
+
 Integrantes:
 - Jose Andres
 - Aitor

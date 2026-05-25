@@ -4,10 +4,10 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Datos de conexión a la base de datos
-$hostname = "localhost";
+$hostname = getenv('DB_HOST') ?: "localhost";
 $database = "teatro_proyecto";
 $username = "root";
-$password = "";
+$password = "root";
 
 // Crear conexión
 $conexion = new mysqli($hostname, $username, $password, $database);
