@@ -18,9 +18,9 @@ La aplicación implementa una arquitectura cliente-servidor completa, permitiend
 
 A continuación se muestran capturas reales del flujo de compra y reserva de butacas desde el dispositivo Android:
 
-|                           Login y Registro                            |                         Cartelera Dinámica                         |                         Reserva de Butacas                          |                       ️ Ticket Digital & QR                        |
-|:---------------------------------------------------------------------:|:------------------------------------------------------------------:|:-------------------------------------------------------------------:|:------------------------------------------------------------------:|
-| <img src="/imgproyectos/loginPrev.png" width="200" alt="Login"> | <img src="/imgproyectos/initPrev.png" width="200" alt="Home"> | <img src="/imgproyectos/butacasPrev.png" width="200" alt="Butacas"> | <img src="/imgproyectos/entradaPrev.png" width="200" alt="Ticket"> |
+|                            Login y Registro                            |                     Cartelera Dinámica                      |                         Reserva de Butacas                          |                       ️ Ticket Digital & QR                        |
+|:----------------------------------------------------------------------:|:-----------------------------------------------------------:|:-------------------------------------------------------------------:|:------------------------------------------------------------------:|
+| <img src="/imgPreview/loginPrev.png" width="200" alt="Login"> | <img src="/imgPreview/progPrev.png" width="200" alt="Home"> | <img src="/imgPreview/butacasPrev.png" width="200" alt="Butacas"> | <img src="/imgPreview/entradaPrev.png" width="200" alt="Ticket"> |
 
 *Nota: Las capturas muestran el comportamiento real de los componentes Material Design y el renderizado interactivo de la matriz de asientos de las sesiones.*
 
