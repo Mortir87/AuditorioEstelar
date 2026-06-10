@@ -10,7 +10,21 @@ Aplicación móvil Android desarrollada como proyecto final del ciclo formativo 
 Es una plataforma de gestión y venta de entradas para conciertos y eventos culturales, inspirada en el funcionamiento de plataformas reales como el Teatro Real de Madrid.
 La aplicación implementa una arquitectura cliente-servidor completa, permitiendo a los usuarios explorar conciertos, consultar sesiones, seleccionar butacas en tiempo real y gestionar reservas desde dispositivos Android.
 
+## Interfaz de la Aplicación (UI/UX)
 
+<details>
+<summary>📱 Haz clic aquí para desplegar las capturas de pantalla de la App</summary>
+<br>
+
+A continuación se muestran capturas reales del flujo de compra y reserva de butacas desde el dispositivo Android:
+
+|                           Login y Registro                            |                         Cartelera Dinámica                         |                         Reserva de Butacas                          |                       ️ Ticket Digital & QR                        |
+|:---------------------------------------------------------------------:|:------------------------------------------------------------------:|:-------------------------------------------------------------------:|:------------------------------------------------------------------:|
+| <img src="/imgproyectos/loginPrev.png" width="200" alt="Login"> | <img src="/imgproyectos/initPrev.png" width="200" alt="Home"> | <img src="/imgproyectos/butacasPrev.png" width="200" alt="Butacas"> | <img src="/imgproyectos/entradaPrev.png" width="200" alt="Ticket"> |
+
+*Nota: Las capturas muestran el comportamiento real de los componentes Material Design y el renderizado interactivo de la matriz de asientos de las sesiones.*
+
+</details>
 ## Características principales
 - Registro, login y perfil
 - Cartelera dinámica de conciertos
@@ -28,6 +42,24 @@ La aplicación implementa una arquitectura cliente-servidor completa, permitiend
 ## Arquitectura
 
 El proyecto sigue una arquitectura cliente-servidor dividida en tres capas:
+
+### 🔄 Flujo de Comunicación e Infraestructura
+
+```text
+[ Dispositivo Android ] 
+       │  (HTTP / JSON mediante Retrofit)
+       ▼
+[ Internet (Dominio Público) ]
+       │
+       ▼
+[ Cloudflare Tunnel (Proxy Seguro) ]
+       │
+       ▼
+[ Raspberry Pi 4 (Host Local) ] ──► [ Docker Compose ]
+                                          │
+                                          ├──► Container 1: Apache + PHP 8.2 (API)
+                                          └──► Container 2: MariaDB (Database)
+```
 
 ### Cliente Android
 - Java 11
@@ -163,26 +195,21 @@ Abrir el proyecto con Android Studio y ejecutar en:
 
 
 
-## Seguridad
+## Seguridad & Clean Code
 
-- Contraseñas cifradas mediante `password_hash()`
-- Validación cliente-servidor
-- Prepared Statements contra SQL Injection
-- Gestión segura de sesiones
-- Exposición segura del backend con Cloudflare tunnels
-
+* **Arquitectura Limpia:** Separación estricta de responsabilidades (Separation of Concerns). El cliente Android delega toda la lógica de negocio al backend en PHP a través de interfaces de Retrofit limpias.
+* **Prevención de Inyecciones (SQLi):** Uso categórico de Sentencias Preparadas (Prepared Statements) con PDO en todas las interacciones con la base de datos.
+* **Cifrado de Alta Seguridad:** Gestión de credenciales de usuarios utilizando algoritmos de hashing seguros nativos de PHP (`password_hash` con BCRYPT).
+* **Aislamiento de Entorno:** Uso de Docker para asegurar que las variables de entorno de la base de datos no queden expuestas en el código fuente.
 
 
-## Testing
+## Control de Calidad & Testing (QA)
 
-Se realizaron pruebas funcionales incrementales para validar:
+Para asegurar la robustez del software y evitar regresiones, el proyecto pasó por un ciclo de pruebas funcionales e integradas:
 
-- Autenticación
-- Navegación
-- Comunicación API REST
-- Gestión de reservas
-- Generación de PDF y QR
-- Integridad de datos
+* **API Testing (Postman):** Se diseñó una colección de pruebas en Postman para validar los endpoints de la API RESTful. Se verificaron códigos de estado HTTP (200, 400, 404, 500), estructuras de respuestas JSON mediante esquemas, y flujos de autenticación.
+* **Pruebas de Integridad de Datos:** Validación de restricciones de claves foráneas y triggers en MariaDB al cancelar o duplicar reservas de butacas en tiempo real.
+* **UI & Carga Local:** Validación en emuladores con diferentes densidades de píxeles para asegurar la adaptabilidad de la cuadrícula interactiva de las butacas con Material Design.
 
 
 
